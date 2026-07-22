@@ -3,7 +3,9 @@ services:
     name: embriones-do-brasil
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build
+    # NODE_ENV=production makes npm omit devDependencies by default, but Vinext,
+    # Vite and the Cloudflare build plugin are required during compilation.
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /
     autoDeployTrigger: commit
